@@ -1,0 +1,31 @@
+.ss-app-shell {
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.ss-app-main {
+  min-width: 0;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+}
+
+.ss-page-content {
+  width: 100%;
+  max-width: 1600px;
+  min-height: calc(100vh - var(--header-height));
+  margin-inline: auto;
+  padding: 32px 28px;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .ss-app-main {
+    margin-left: 0;
+  }
+
+  .ss-page-content {
+    padding: 20px 16px;
+  }
+}

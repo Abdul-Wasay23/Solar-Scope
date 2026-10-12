@@ -1,0 +1,89 @@
+.ss-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 42px;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 120ms ease;
+}
+
+.ss-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.ss-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ss-button:focus-visible {
+  outline: 3px solid rgba(255, 184, 0, 0.4);
+  outline-offset: 2px;
+}
+
+.ss-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary Button uses Vivid Sun Gold as CTA button (typography.txt) */
+.ss-button--primary {
+  color: #0F2C59;
+  background-color: var(--color-accent);
+  font-weight: 700;
+}
+
+.ss-button--primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+/* Secondary Button uses Deep Solar Blue (typography.txt) */
+.ss-button--secondary {
+  color: #FFFFFF;
+  background-color: var(--color-primary);
+}
+
+.ss-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+/* Outline Button */
+.ss-button--outline {
+  color: var(--color-primary);
+  background-color: transparent;
+  border-color: var(--color-border);
+}
+
+.ss-button--outline:hover:not(:disabled) {
+  background-color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+
+/* Danger Button */
+.ss-button--danger {
+  color: #FFFFFF;
+  background-color: var(--color-danger);
+}
+
+.ss-button--danger:hover:not(:disabled) {
+  background-color: #B91C1C;
+}
+
+@media (max-width: 520px) {
+  .ss-button {
+    min-height: 40px;
+    padding: 9px 14px;
+  }
+}

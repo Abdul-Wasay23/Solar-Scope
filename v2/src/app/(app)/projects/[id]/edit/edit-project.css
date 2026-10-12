@@ -1,0 +1,199 @@
+/* SolarScope — Edit Project Page Styles */
+
+.edit-project-page {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.edit-project-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+  width: fit-content;
+}
+
+.edit-project-back-link:hover {
+  color: var(--color-primary);
+  transform: translateX(-2px);
+}
+
+.edit-project-header {
+  margin-bottom: var(--space-xs);
+}
+
+.edit-project-title {
+  font-size: 1.85rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1.25;
+}
+
+.edit-project-subtitle {
+  margin-top: 6px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.edit-project-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.edit-project-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.edit-project-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 600px) {
+  .edit-project-form-row--two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.edit-project-general-error {
+  padding: 12px 16px;
+  background-color: var(--color-danger-soft);
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-md);
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Map Section & Instructions */
+.edit-project-map-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-project-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.edit-project-map-instruction {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-project-map-instruction strong {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.edit-project-map-reset-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  padding: 2px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edit-project-map-reset-btn:hover {
+  text-decoration: underline;
+}
+
+/* Textarea group matching Input / Select components */
+.edit-project-textarea-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-project-textarea-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.edit-project-textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.edit-project-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(15, 44, 89, 0.12);
+}
+
+.edit-project-textarea-helper {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* Form Actions */
+.edit-project-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-sm);
+}
+
+.edit-project-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.edit-project-cancel-btn:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  color: var(--color-primary);
+}
