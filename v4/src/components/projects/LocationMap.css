@@ -1,0 +1,211 @@
+/* SolarScope — Interactive Location Map Styles */
+
+.solarscope-map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  background-color: #EBF3FC;
+}
+
+.solarscope-map-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Custom SolarScope Marker Pin — Clean Anchor without CSS transform conflicts */
+.solarscope-map-pin-container {
+  background: transparent !important;
+  border: none !important;
+  /* Prevent pointer event issues */
+  cursor: grab;
+}
+
+.solarscope-map-pin-container:active {
+  cursor: grabbing;
+}
+
+.solarscope-custom-pin {
+  display: block;
+  width: 32px;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  filter: drop-shadow(0 4px 8px rgba(15, 44, 89, 0.4));
+  pointer-events: auto;
+}
+
+.solarscope-custom-pin svg {
+  display: block;
+  width: 32px;
+  height: 42px;
+}
+
+/* Loading & Geocoding Overlays */
+.solarscope-map-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 249, 250, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.solarscope-spin {
+  animation: solarscope-rotate 1s linear infinite;
+  color: var(--color-primary);
+}
+
+@keyframes solarscope-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.solarscope-map-geocoding-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background-color: rgba(15, 44, 89, 0.92);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.solarscope-map-error-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(254, 242, 242, 0.95);
+  color: var(--color-danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  z-index: 10;
+}
+
+/* Coordinates badge with English basemap indicator */
+.solarscope-map-coords-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 20;
+  box-shadow: var(--shadow-sm);
+}
+
+.solarscope-map-recenter-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.solarscope-map-recenter-btn:hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+}
+
+/* Satellite / Street Layer Switcher Control */
+.solarscope-map-layer-switcher {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.solarscope-layer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.solarscope-layer-btn:not(:last-child) {
+  border-right: 1px solid var(--color-border);
+}
+
+.solarscope-layer-btn:hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.solarscope-layer-btn.is-active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+/* High-Res Satellite Badge */
+.solarscope-map-satellite-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 60px;
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(15, 44, 89, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xs);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  color: #FFFFFF;
+  pointer-events: none;
+}
+

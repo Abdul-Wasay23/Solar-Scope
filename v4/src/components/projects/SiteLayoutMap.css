@@ -1,0 +1,366 @@
+/**
+ * SolarScope — SiteLayoutMap Component Styles
+ */
+
+.solarscope-site-map-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 480px;
+  background-color: #E2E8F0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solarscope-site-map-wrapper.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  border: none;
+}
+
+.solarscope-site-map-container {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  z-index: 1;
+}
+
+/* Loading & Error Overlays */
+.solarscope-site-map-loading,
+.solarscope-site-map-error {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  background-color: rgba(248, 249, 250, 0.88);
+  backdrop-filter: blur(4px);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.solarscope-site-map-error {
+  background-color: rgba(254, 226, 226, 0.95);
+  color: var(--color-danger);
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+/* Top Floating Bar */
+.solarscope-site-map-top-bar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: auto;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  pointer-events: none;
+  gap: 10px;
+  max-width: calc(100% - 370px);
+  flex-wrap: wrap;
+}
+
+.solarscope-site-map-mode-indicator {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.solarscope-site-map-mode-indicator .mode-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.solarscope-site-map-mode-indicator .mode-dot[data-mode="DRAW_BOUNDARY"] {
+  background: #2563EB;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.6);
+}
+
+.solarscope-site-map-mode-indicator .mode-dot[data-mode="DRAW_ZONE"] {
+  background: #D97706;
+  box-shadow: 0 0 6px rgba(217, 119, 6, 0.6);
+}
+
+.solarscope-site-map-mode-indicator .mode-dot[data-mode="PANEL_EDIT"] {
+  background: var(--color-accent);
+  box-shadow: 0 0 6px rgba(255, 184, 0, 0.8);
+}
+
+.solarscope-site-map-actions {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.solarscope-site-map-satellite-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(15, 44, 89, 0.80);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  user-select: none;
+}
+
+.solarscope-site-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.solarscope-site-map-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--color-border-hover);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
+}
+
+/* Bottom Floating Bar */
+.solarscope-site-map-bottom-bar {
+  position: absolute;
+  bottom: var(--space-sm);
+  left: var(--space-sm);
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.solarscope-site-map-badge {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.solarscope-site-map-badge--accent {
+  background: rgba(15, 44, 89, 0.95);
+  color: #FFFFFF;
+  border-color: #0F2C59;
+}
+
+/* Tooltip styles */
+.solarscope-map-tooltip {
+  background: rgba(15, 44, 89, 0.92) !important;
+  border: none !important;
+  border-radius: var(--radius-xs) !important;
+  color: #FFFFFF !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  padding: 3px 6px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.solarscope-vertex-tooltip {
+  background: rgba(37, 99, 235, 0.9) !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  color: #FFFFFF !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  padding: 1px 4px !important;
+}
+
+/* Selected panel polygon visual feedback */
+.solarscope-selected-panel-poly {
+  filter: drop-shadow(0 0 6px rgba(255, 184, 0, 0.9));
+  animation: pulsePanel 1.8s infinite alternate ease-in-out;
+}
+
+@keyframes pulsePanel {
+  0% {
+    stroke-opacity: 0.8;
+  }
+  100% {
+    stroke-opacity: 1;
+    stroke-width: 4px;
+  }
+}
+
+/* 3D Perspective & Building Footprint Enhancements */
+.solarscope-site-map-container.is-3d-perspective {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.solarscope-building-poly {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.solarscope-building-poly:hover {
+  stroke: #38BDF8 !important;
+  stroke-width: 2.5px !important;
+  fill-opacity: 0.45 !important;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+}
+
+.solarscope-selected-building-poly {
+  cursor: pointer;
+  stroke: #F59E0B !important;
+  stroke-width: 3.5px !important;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.85));
+  animation: pulseBuilding 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulseBuilding {
+  0% {
+    stroke-width: 3px;
+    fill-opacity: 0.35;
+  }
+  100% {
+    stroke-width: 4.5px;
+    fill-opacity: 0.55;
+  }
+}
+
+.solarscope-building-badge {
+  background: transparent !important;
+  border: none !important;
+}
+
+.building-selected-pin {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(245, 158, 11, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #FCD34D;
+  border-radius: 9999px;
+  color: #0F172A;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: bouncePin 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes bouncePin {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+.solarscope-focus-tooltip {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border: 1px solid #38BDF8 !important;
+  color: #38BDF8 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+}
+
+/* 3D View Camera Bar */
+.solarscope-3d-controls-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+}
+
+.solarscope-3d-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.solarscope-3d-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.solarscope-3d-btn.is-active {
+  background: var(--color-primary, #0F2C59);
+  color: #38BDF8;
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+
+.solarscope-3d-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 2px;
+}
+
