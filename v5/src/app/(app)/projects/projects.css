@@ -1,0 +1,509 @@
+/* SolarScope — Projects Listing Page Styles */
+
+.projects-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Page Header */
+.projects-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.projects-header-info {
+  max-width: 600px;
+}
+
+.projects-title {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.projects-subtitle {
+  margin-top: 6px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.projects-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.projects-create-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.projects-create-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Stats / Counts Bar */
+.projects-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.projects-stat-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease;
+}
+
+.projects-stat-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.projects-stat-icon-wrapper--all {
+  background-color: #EBF3FC;
+  color: var(--color-primary);
+}
+
+.projects-stat-icon-wrapper--progress {
+  background-color: var(--color-info-soft);
+  color: var(--color-info);
+}
+
+.projects-stat-icon-wrapper--completed {
+  background-color: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.projects-stat-icon-wrapper--draft {
+  background-color: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.projects-stat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-stat-label {
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.projects-stat-value {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+/* Controls Toolbar (Search & Filter Tabs) */
+.projects-toolbar {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 768px) {
+  .projects-toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.projects-search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+}
+
+.projects-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.projects-search-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 38px 0 40px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.projects-search-input:focus {
+  outline: none;
+  background-color: var(--color-surface);
+  border-color: var(--color-primary-light);
+  box-shadow: 0 0 0 3px rgba(15, 44, 89, 0.08);
+}
+
+.projects-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.projects-search-clear:hover {
+  color: var(--color-primary);
+  background-color: var(--color-border);
+}
+
+/* Filter Tabs */
+.projects-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.projects-filter-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-body);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.projects-filter-tab:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  color: var(--color-primary);
+}
+
+.projects-filter-tab.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-semibold);
+}
+
+.projects-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background-color: rgba(15, 44, 89, 0.08);
+  color: var(--color-primary);
+}
+
+.projects-filter-tab.is-active .projects-tab-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: var(--color-text-inverse);
+}
+
+/* Active Filters Summary Bar */
+.projects-active-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 8px 12px;
+  background-color: #F1F5F9;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.projects-reset-link-btn {
+  background: none;
+  border: none;
+  color: var(--color-info);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.projects-reset-link-btn:hover {
+  color: var(--color-primary);
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Empty States */
+.projects-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 64px 24px;
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.projects-empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #EBF3FC;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+}
+
+.projects-empty-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.projects-empty-desc {
+  max-width: 440px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  margin-bottom: var(--space-lg);
+}
+
+.projects-empty-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   Media Query Start
+   Projects Listing Exact Breakpoint Specifications
+   Desktop intact >= 992px; Adaptable < 992px
+   ========================================================================== */
+
+/* ── 1. Extra Large Screens (1366px - 1500px) ────────────────────────────── */
+@media only screen and (min-width: 1366px) and (max-width: 1500px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── 2. Standard Desktop (1200px - 1365px) ───────────────────────────────── */
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+  .projects-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+/* ── 3. Compact Desktop / Laptop (992px - 1199px) ────────────────────────── */
+/* Rule: 992 se onwards jaise desktop pe hai waisa hi chahiye (same layout, size adjustments) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .projects-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .projects-stat-card {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .projects-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+/* ── 4. Tablet Landscape & Small Laptop (768px - 991px) ──────────────────── */
+/* Rule: 992 se neeche layout thora aage peeche karlo */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .projects-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .projects-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .projects-search-wrapper {
+    max-width: 100%;
+  }
+}
+
+/* ── 5. Large Mobile & Phablet (520px - 767px) ───────────────────────────── */
+@media only screen and (min-width: 520px) and (max-width: 767px) {
+  .projects-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .projects-toolbar {
+    padding: 12px;
+  }
+}
+
+/* ── 6. Small & Standard Mobile (300px - 519px) ──────────────────────────── */
+@media only screen and (min-width: 300px) and (max-width: 519px) {
+  .projects-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .projects-create-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .projects-title {
+    font-size: 1.45rem;
+  }
+
+  .projects-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .projects-toolbar {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .projects-search-input {
+    font-size: 16px;
+  }
+
+  .projects-filter-tabs {
+    padding-bottom: 4px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 7. Ultra-compact & Micro Screens (0px - 299px) ──────────────────────── */
+@media only screen and (min-width: 0px) and (max-width: 299px) {
+  .projects-title {
+    font-size: 1.2rem;
+  }
+
+  .projects-stats-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .projects-create-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+}
+
+/*Media Query End*/

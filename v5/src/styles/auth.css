@@ -1,0 +1,417 @@
+/* =====================================================================
+   SolarScope — Authentication Pages Stylesheet (auth.css)
+   Colors: Deep Solar Blue (#0F2C59) & Vivid Sun Gold (#FFB800)
+   ===================================================================== */
+
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: var(--color-background);
+  background-image: radial-gradient(circle at 50% 10%, rgba(255, 184, 0, 0.08) 0%, transparent 60%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 180ms ease;
+}
+
+.auth-brand-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.auth-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.auth-brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(255, 184, 0, 0.35);
+}
+
+.auth-brand-name {
+  font-family: var(--font-family-base);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+.auth-title {
+  font-family: var(--font-family-base);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-align: center;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-field-label {
+  margin-bottom: -14px;
+  color: var(--color-text-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-body);
+  font: inherit;
+}
+
+.auth-row-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.auth-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-body);
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-checkbox {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.auth-forgot-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.auth-forgot-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+.auth-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 20px;
+  margin-top: 4px;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  font-family: var(--font-family-base);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 184, 0, 0.35);
+  transition: transform 120ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 184, 0, 0.45);
+}
+
+.auth-submit-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 14px;
+}
+
+.auth-divider>span:first-child,
+.auth-divider>span:last-child {
+  height: 1px;
+  flex: 1;
+  background: var(--color-border-subtle);
+}
+
+.auth-divider-label {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.auth-google-btn {
+  display: flex;
+  width: 100%;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: #27364b;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.auth-google-btn:hover:not(:disabled) {
+  border-color: var(--color-border);
+  background: #f8fafc;
+}
+
+.auth-google-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.auth-google-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.auth-google-mark {
+  background: conic-gradient(from -45deg, #4285f4 0 25%, #34a853 25% 50%, #fbbc05 50% 75%, #ea4335 75% 100%);
+  background-clip: text;
+  color: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.auth-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(15, 44, 89, 0.25);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: auth-spin 0.65s linear infinite;
+}
+
+@keyframes auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.auth-demo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  margin-bottom: 20px;
+  background-color: rgba(15, 44, 89, 0.04);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.auth-message {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.auth-message--success {
+  background-color: var(--color-success-soft);
+  color: #166534;
+  border: 1px solid #BBF7D0;
+}
+
+.auth-message--error {
+  background-color: var(--color-danger-soft);
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+.auth-footer-switch {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.auth-footer-link {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: color 150ms ease;
+}
+
+.auth-footer-link:hover {
+  text-decoration: underline;
+  color: var(--color-accent-hover);
+}
+
+/* ==========================================================================
+   Media Query Start
+   Auth Pages Exact Breakpoint Specifications
+   Desktop intact >= 992px; Adaptable < 992px
+   ========================================================================== */
+
+/* ── 1. Extra Large Screens (1366px - 1500px) ────────────────────────────── */
+@media only screen and (min-width: 1366px) and (max-width: 1500px) {
+  .auth-card {
+    max-width: 480px;
+  }
+}
+
+/* ── 2. Standard Desktop (1200px - 1365px) ───────────────────────────────── */
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+  .auth-card {
+    max-width: 460px;
+  }
+}
+
+/* ── 3. Compact Desktop / Laptop (992px - 1199px) ────────────────────────── */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .auth-card {
+    max-width: 440px;
+    padding: 36px 32px;
+  }
+}
+
+/* ── 4. Tablet Landscape & Small Laptop (768px - 991px) ──────────────────── */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .auth-page {
+    padding: 32px 20px;
+  }
+
+  .auth-card {
+    max-width: 440px;
+    padding: 34px 28px;
+  }
+}
+
+/* ── 5. Large Mobile & Phablet (520px - 767px) ───────────────────────────── */
+@media only screen and (min-width: 520px) and (max-width: 767px) {
+  .auth-page {
+    padding: 24px 16px;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+}
+
+/* ── 6. Small & Standard Mobile (300px - 519px) ──────────────────────────── */
+@media only screen and (min-width: 300px) and (max-width: 519px) {
+  .auth-page {
+    padding: 16px 12px;
+  }
+
+  .auth-card {
+    padding: 24px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+
+  .auth-subtitle {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .auth-form {
+    gap: 16px;
+  }
+}
+
+/* ── 7. Ultra-compact & Micro Screens (0px - 299px) ──────────────────────── */
+@media only screen and (min-width: 0px) and (max-width: 299px) {
+  .auth-page {
+    padding: 10px 6px;
+  }
+
+  .auth-card {
+    padding: 16px 10px;
+  }
+
+  .auth-brand-name {
+    font-size: 18px;
+  }
+
+  .auth-title {
+    font-size: 17px;
+  }
+
+  .auth-subtitle {
+    font-size: 12px;
+  }
+}
+
+/*Media Query End*/

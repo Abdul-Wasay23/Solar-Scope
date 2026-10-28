@@ -1,0 +1,678 @@
+/* ============================================================
+   SolarScope — VIP Profile Settings Styles
+   ============================================================ */
+
+.vip-profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 4px 0 60px 0;
+}
+
+/* ---- 1. Profile Header / Hero Card ---- */
+.vip-profile-hero {
+  background: linear-gradient(135deg, #0F2C59 0%, #153E75 60%, #1A4E94 100%);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  color: #FFFFFF;
+  box-shadow: 0 10px 30px -5px rgba(15, 44, 89, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vip-profile-hero::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 184, 0, 0.22) 0%, rgba(255, 184, 0, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.vip-profile-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.vip-profile-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.vip-profile-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFB800 0%, #D97706 100%);
+  color: #0F172A;
+  font-size: 32px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+}
+
+.vip-profile-avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid #0F2C59;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.vip-profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vip-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.vip-profile-name {
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.vip-profile-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 184, 0, 0.2);
+  border: 1px solid rgba(255, 184, 0, 0.4);
+  color: #FFB800;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.vip-profile-title-text {
+  font-size: 14px;
+  color: rgba(241, 245, 249, 0.85);
+  margin: 0;
+}
+
+.vip-profile-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: rgba(241, 245, 249, 0.7);
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.vip-profile-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vip-profile-hero-stats {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(8px);
+  flex-shrink: 0;
+}
+
+.vip-profile-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.vip-profile-stat-num {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFB800;
+}
+
+.vip-profile-stat-lbl {
+  font-size: 11px;
+  color: rgba(241, 245, 249, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.vip-profile-stat-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ---- 2. Profile Navigation Tabs ---- */
+.vip-profile-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  padding: 6px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 4px rgba(15, 44, 89, 0.04);
+}
+
+.vip-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.vip-tab-btn:hover {
+  color: var(--color-primary);
+  background: #F8FAFC;
+}
+
+.vip-tab-btn.is-active {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(15, 44, 89, 0.25);
+}
+
+/* ---- 3. Settings Form Card ---- */
+.vip-settings-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(15, 44, 89, 0.05);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.vip-settings-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 16px;
+}
+
+.vip-settings-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vip-settings-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: rgba(15, 44, 89, 0.08);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vip-settings-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.vip-settings-desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 2px 0 0 0;
+}
+
+/* Form Layout */
+.vip-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.vip-form-grid--full {
+  grid-column: 1 / -1;
+}
+
+.vip-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.vip-form-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.vip-form-hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.vip-form-input,
+.vip-form-select,
+.vip-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background: #FFFFFF;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.vip-form-input:focus,
+.vip-form-select:focus,
+.vip-form-textarea:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.vip-form-input:disabled {
+  background: #F8FAFC;
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* Toggle Switches */
+.vip-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #F8FAFC;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  gap: 16px;
+}
+
+.vip-toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.vip-toggle-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.vip-toggle-desc {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.vip-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.vip-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.vip-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #CBD5E1;
+  transition: 0.2s;
+  border-radius: 9999px;
+}
+
+.vip-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+input:checked + .vip-slider {
+  background-color: #10B981;
+}
+
+input:checked + .vip-slider:before {
+  transform: translateX(22px);
+}
+
+/* Security & Session Info */
+.vip-session-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #F8FAFC;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.vip-session-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vip-session-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(16, 185, 129, 0.1);
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vip-session-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.vip-session-sub {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* Form Action Footer */
+.vip-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #F1F5F9;
+}
+
+.vip-btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #0F2C59 0%, #1A4E94 100%);
+  color: #FFFFFF;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 44, 89, 0.25);
+  transition: all 0.2s ease;
+}
+
+.vip-btn-save:hover {
+  background: linear-gradient(135deg, #163e7a 0%, #0F2C59 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(15, 44, 89, 0.35);
+}
+
+.vip-btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Toast */
+.vip-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #0F2C59;
+  color: #FFFFFF;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  font-weight: 600;
+  border-left: 4px solid #10B981;
+  animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInToast {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Media Query Start
+   Profile Settings Exact Breakpoint Specifications
+   Desktop intact >= 992px; Adaptable < 992px
+   ========================================================================== */
+
+/* ── 1. Extra Large Screens (1366px - 1500px) ────────────────────────────── */
+@media only screen and (min-width: 1366px) and (max-width: 1500px) {
+  .vip-profile-page {
+    max-width: 1120px;
+  }
+}
+
+/* ── 2. Standard Desktop (1200px - 1365px) ───────────────────────────────── */
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+  .vip-profile-page {
+    max-width: 1040px;
+  }
+  .vip-profile-hero {
+    padding: 28px 32px;
+  }
+}
+
+/* ── 3. Compact Desktop / Laptop (992px - 1199px) ────────────────────────── */
+/* Rule: 992 se onwards jaise desktop pe hai waisa hi chahiye (same layout, size adjustments) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .vip-profile-page {
+    max-width: 960px;
+    gap: 22px;
+  }
+  .vip-profile-hero {
+    padding: 24px 28px;
+    gap: 20px;
+  }
+  .vip-profile-name {
+    font-size: 24px;
+  }
+  .vip-form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+/* ── 4. Tablet Landscape & Small Laptop (768px - 991px) ──────────────────── */
+/* Rule: 992 se neeche layout thora aage peeche karlo */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .vip-profile-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+    gap: 20px;
+  }
+  .vip-profile-hero-stats {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+  .vip-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .vip-profile-tabs {
+    overflow-x: auto;
+  }
+}
+
+/* ── 5. Large Mobile & Phablet (520px - 767px) ───────────────────────────── */
+@media only screen and (min-width: 520px) and (max-width: 767px) {
+  .vip-profile-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 18px;
+    gap: 16px;
+  }
+  .vip-profile-hero-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .vip-profile-name {
+    font-size: 22px;
+  }
+  .vip-profile-hero-stats {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .vip-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .vip-panel-header {
+    padding: 16px 18px;
+  }
+  .vip-panel-body {
+    padding: 18px 16px;
+  }
+}
+
+/* ── 6. Small & Standard Mobile (300px - 519px) ──────────────────────────── */
+@media only screen and (min-width: 300px) and (max-width: 519px) {
+  .vip-profile-page {
+    gap: 18px;
+    padding: 0 4px 40px 4px;
+  }
+  .vip-profile-hero {
+    padding: 16px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .vip-profile-hero-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .vip-profile-avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 26px;
+  }
+  .vip-profile-name {
+    font-size: 20px;
+  }
+  .vip-profile-hero-stats {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .vip-profile-tabs {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .vip-profile-tab {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+  .vip-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .vip-panel-header {
+    padding: 14px;
+  }
+  .vip-panel-body {
+    padding: 14px 12px;
+  }
+  .vip-btn-save {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── 7. Ultra-compact & Micro Screens (0px - 299px) ──────────────────────── */
+@media only screen and (min-width: 0px) and (max-width: 299px) {
+  .vip-profile-hero {
+    padding: 12px 8px;
+  }
+  .vip-profile-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+  .vip-profile-name {
+    font-size: 17px;
+  }
+  .vip-panel-body {
+    padding: 10px 6px;
+  }
+  .vip-btn-save {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/*Media Query End*/

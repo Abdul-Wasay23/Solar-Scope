@@ -1,0 +1,82 @@
+:root {
+  /* SolarScope Approved Color Palette (Source: typography.txt) */
+  --color-primary: #0F2C59;            /* Deep Solar Blue - Trust, technology, headers & footers */
+  --color-primary-hover: #163e7a;
+  --color-primary-light: #1e3a68;
+  --color-accent: #FFB800;             /* Vivid Sun Gold - Solar energy, CTAs & highlights */
+  --color-accent-hover: #e6a600;
+  --color-accent-light: #fff4d6;
+
+  /* Surfaces & Backgrounds */
+  --color-background: #F8F9FA;         /* Soft clean off-white */
+  --color-surface: #FFFFFF;            /* Pure white for cards & modals */
+  --color-surface-hover: #F1F5F9;
+
+  /* Text Colors (typography.txt) */
+  --color-text-primary: #0F2C59;       /* Deep Solar Blue for headings */
+  --color-text-body: #4A5568;          /* Soft charcoal for paragraph & body text */
+  --color-text-muted: #64748B;         /* Slate gray for secondary details */
+  --color-text-inverse: #FFFFFF;
+
+  /* Borders & Dividers - High definition visible borders */
+  --color-border: #94A3B8;
+  --color-border-hover: #475569;
+  --color-border-subtle: #CBD5E1;
+
+  /* Semantic Feedback Colors */
+  --color-success: #16A34A;
+  --color-success-soft: #DCFCE7;
+  --color-warning: #D97706;
+  --color-warning-soft: #FEF3C7;
+  --color-danger: #DC2626;
+  --color-danger-soft: #FEE2E2;
+  --color-info: #2563EB;
+  --color-info-soft: #DBEAFE;
+
+  /* Spacing Scale */
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 44, 89, 0.05);
+  --shadow-card: 0 4px 16px -2px rgba(15, 44, 89, 0.06), 0 2px 6px -1px rgba(15, 44, 89, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(15, 44, 89, 0.08);
+  --shadow-lg: 0 16px 32px -6px rgba(15, 44, 89, 0.12);
+
+  /* Workspace Layout Dimensions */
+  --sidebar-width: 260px;
+  --header-height: 68px;
+
+  /* Typography Scale (typography.txt) */
+  --font-family-base: 'Inter', sans-serif;
+  --font-size-h1: 2.75rem;     /* ~44px */
+  --font-size-h2: 2.25rem;     /* ~36px */
+  --font-size-h3: 1.75rem;     /* ~28px */
+  --font-size-h4: 1.35rem;     /* ~22px */
+  --font-size-h5: 1.15rem;     /* ~18px */
+  --font-size-h6: 1rem;        /* ~16px */
+  --font-size-body: 1rem;      /* ~16px */
+  --font-size-sm: 0.875rem;    /* ~14px */
+  --font-size-xs: 0.75rem;     /* ~12px */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-heading: 1.2;
+  --line-height-body: 1.6;
+}

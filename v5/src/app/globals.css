@@ -1,0 +1,161 @@
+/* Import Inter Font from Google Fonts (typography.txt fallback) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Global Style Architecture Imports */
+@import '../styles/variables.css';
+@import '../styles/reset.css';
+@import '../styles/utilities.css';
+
+/* Global Font & Body Application (typography.txt) */
+html,
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  color: #4A5568;
+  background-color: #F8F9FA;
+  line-height: 1.6;
+}
+
+/* Headings (Deep Solar Blue - typography.txt) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Inter', sans-serif;
+  color: #0F2C59;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+}
+
+/* ~44px - Main Hero Title */
+h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+/* ~36px - Section Titles */
+h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* ~28px - Product Titles / Cards */
+h4 {
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+/* ~22px - Subheadings */
+h5 {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* ~18px - Small Headers */
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ~16px - Mini Badges/Labels */
+
+/* Paragraph & Body Text (typography.txt) */
+p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  /* ~16px */
+  font-weight: 400;
+  /* Regular */
+  color: #4A5568;
+  /* Readable soft charcoal */
+  line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: 'Inter', sans-serif;
+}
+
+
+/* ==========================================================================
+   Media Query Start
+   Global Responsive Breakpoints (Desktop >= 992px, Adaptable < 992px)
+   ========================================================================== */
+
+/* ── 1. Extra Large Screens (1366px - 1500px) ────────────────────────────── */
+@media only screen and (min-width: 1366px) and (max-width: 1500px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ── 2. Standard Desktop (1200px - 1365px) ───────────────────────────────── */
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+  html {
+    font-size: 15.5px;
+  }
+}
+
+/* ── 3. Compact Desktop / Laptop (992px - 1199px) ────────────────────────── */
+/* Rule: 992 se onwards jaise desktop pe hai waisa hi chahiye (same layout, size adjustments) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  html {
+    font-size: 15px;
+  }
+  h1 { font-size: 2.35rem; }
+  h2 { font-size: 1.95rem; }
+  h3 { font-size: 1.55rem; }
+}
+
+/* ── 4. Tablet Landscape & Small Laptop (768px - 991px) ──────────────────── */
+/* Rule: 992 se neeche layout thora aage peeche karlo */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  html {
+    font-size: 15px;
+  }
+  h1 { font-size: 2.15rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.45rem; }
+}
+
+/* ── 5. Large Mobile & Phablet (520px - 767px) ───────────────────────────── */
+@media only screen and (min-width: 520px) and (max-width: 767px) {
+  html {
+    font-size: 14.5px;
+  }
+  h1 { font-size: 1.85rem; }
+  h2 { font-size: 1.55rem; }
+  h3 { font-size: 1.3rem; }
+}
+
+/* ── 6. Small & Standard Mobile (300px - 519px) ──────────────────────────── */
+@media only screen and (min-width: 300px) and (max-width: 519px) {
+  html {
+    font-size: 14px;
+  }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.15rem; }
+}
+
+/* ── 7. Ultra-compact & Micro Screens (0px - 299px) ──────────────────────── */
+@media only screen and (min-width: 0px) and (max-width: 299px) {
+  html {
+    font-size: 13px;
+  }
+  h1 { font-size: 1.35rem; }
+  h2 { font-size: 1.15rem; }
+  h3 { font-size: 1rem; }
+}
+
+/*Media Query End*/
