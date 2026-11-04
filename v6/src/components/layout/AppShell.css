@@ -1,0 +1,85 @@
+.ss-app-shell {
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.ss-app-main {
+  min-width: 0;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+}
+
+.ss-page-content {
+  width: 100%;
+  max-width: 1600px;
+  min-height: calc(100vh - var(--header-height));
+  margin-inline: auto;
+  padding: 32px 28px;
+  flex: 1;
+}
+
+/* ==========================================================================
+   Media Query Start
+   App Shell Breakpoint Specifications (Desktop >= 992px, Mobile/Tablet < 992px)
+   ========================================================================== */
+
+@media only screen and (min-width: 1366px) and (max-width: 1500px) {
+  .ss-page-content {
+    padding: 28px 24px;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+  .ss-page-content {
+    padding: 24px 20px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .ss-app-main {
+    margin-left: var(--sidebar-width);
+  }
+  .ss-page-content {
+    padding: 20px 18px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ss-app-main {
+    margin-left: 0;
+  }
+  .ss-page-content {
+    padding: 20px 16px;
+  }
+}
+
+@media only screen and (min-width: 520px) and (max-width: 767px) {
+  .ss-app-main {
+    margin-left: 0;
+  }
+  .ss-page-content {
+    padding: 16px 14px;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 519px) {
+  .ss-app-main {
+    margin-left: 0;
+  }
+  .ss-page-content {
+    padding: 14px 12px;
+  }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 299px) {
+  .ss-app-main {
+    margin-left: 0;
+  }
+  .ss-page-content {
+    padding: 10px 8px;
+  }
+}
+
+/*Media Query End*/

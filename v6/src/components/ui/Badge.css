@@ -1,0 +1,52 @@
+.ss-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.ss-badge--neutral {
+  color: #475569;
+  background-color: #F1F5F9;
+  border-color: #E2E8F0;
+}
+
+.ss-badge--success {
+  color: #166534;
+  background-color: #DCFCE7;
+  border-color: #BBF7D0;
+}
+
+.ss-badge--warning {
+  color: #92400E;
+  background-color: #FEF3C7;
+  border-color: #FDE68A;
+}
+
+.ss-badge--danger {
+  color: #991B1B;
+  background-color: #FEE2E2;
+  border-color: #FECACA;
+}
+
+.ss-badge--info {
+  color: #1D4ED8;
+  background-color: #DBEAFE;
+  border-color: #BFDBFE;
+}
+
+/* SolarScope Accent Badge (typography.txt) */
+.ss-badge--accent {
+  color: #0F2C59;
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent);
+  font-weight: 700;
+}

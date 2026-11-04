@@ -1,0 +1,325 @@
+/* ============================================================================
+   SolarScope — Location Autocomplete Component Styles
+   Theme: #0F2C59 (Deep Solar Navy), #FFB800 (Sun Gold), #CBD5E1 (Slate)
+   ============================================================================ */
+
+.loc-auto-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.loc-auto-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0F2C59;
+}
+
+.loc-auto-required {
+  color: #DC2626;
+}
+
+.loc-auto-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  background-color: #F8FAFC;
+  transition: all 0.18s ease;
+  overflow: hidden;
+}
+
+.loc-auto-input-wrapper:hover {
+  border-color: #94A3B8;
+  background-color: #FFFFFF;
+}
+
+.loc-auto-input-wrapper:focus-within {
+  background-color: #FFFFFF;
+  border-color: #0F2C59;
+  box-shadow: 0 0 0 3px rgba(15, 44, 89, 0.08);
+}
+
+.loc-auto-input-wrapper.has-error {
+  border-color: #EF4444;
+  background-color: #FEF2F2;
+}
+
+.loc-auto-input-wrapper.has-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.loc-auto-search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 14px;
+  color: #0F2C59;
+  flex-shrink: 0;
+}
+
+.loc-auto-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 11px 12px 11px 10px;
+  font-size: 0.92rem;
+  color: #0F2C59;
+  outline: none;
+  font-family: inherit;
+}
+
+.loc-auto-input::placeholder {
+  color: #94A3B8;
+  font-size: 0.88rem;
+}
+
+.loc-auto-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loc-auto-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 12px;
+  flex-shrink: 0;
+}
+
+.loc-auto-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0F2C59;
+}
+
+.loc-auto-spin {
+  animation: loc-spin 1s linear infinite;
+}
+
+@keyframes loc-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loc-auto-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  border: none;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.loc-auto-clear-btn:hover {
+  background: #CBD5E1;
+  color: #0F2C59;
+}
+
+.loc-auto-error-text {
+  font-size: 0.8rem;
+  color: #DC2626;
+  margin: 0;
+  font-weight: 500;
+}
+
+.loc-auto-helper-text {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 0;
+}
+
+/* ── Dropdown Suggestions ─────────────────────────────────────────────────── */
+.loc-auto-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -5px rgba(15, 44, 89, 0.15), 0 8px 10px -6px rgba(15, 44, 89, 0.1);
+  z-index: 1000;
+  max-height: 340px;
+  overflow-y: auto;
+  animation: loc-fade-in 0.15s ease-out;
+}
+
+@keyframes loc-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loc-auto-dropdown-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  color: #475569;
+  font-size: 0.88rem;
+}
+
+.loc-auto-dropdown-empty {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  color: #64748B;
+}
+
+.loc-auto-dropdown-empty strong {
+  color: #0F2C59;
+}
+
+.loc-auto-dropdown-empty small {
+  font-size: 0.8rem;
+  color: #94A3B8;
+}
+
+.loc-auto-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+
+.loc-auto-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.loc-auto-item:last-child {
+  border-bottom: none;
+}
+
+.loc-auto-item:hover,
+.loc-auto-item.is-highlighted {
+  background-color: #F8FAFC;
+}
+
+.loc-auto-item.is-highlighted {
+  background-color: #EFF6FF;
+}
+
+.loc-auto-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #0F2C59;
+}
+
+.loc-auto-item.is-highlighted .loc-auto-item-icon {
+  background: #0F2C59;
+  color: #FFB800;
+}
+
+.loc-icon-karachi {
+  color: #0F2C59;
+}
+
+.loc-auto-item.is-highlighted .loc-icon-karachi {
+  color: #FFB800;
+}
+
+.loc-auto-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.loc-auto-item-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.loc-auto-item-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0F2C59;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loc-auto-item-secondary {
+  font-size: 0.8rem;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loc-auto-item-coords {
+  font-size: 0.74rem;
+  color: #94A3B8;
+  font-family: monospace;
+  flex-shrink: 0;
+}
+
+.loc-auto-highlight {
+  background-color: #FEF08A;
+  color: #854D0E;
+  font-weight: 800;
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
+.loc-badge-karachi {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1D4ED8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.loc-badge-pk {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #15803D;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
