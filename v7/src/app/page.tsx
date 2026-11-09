@@ -1,0 +1,1365 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+import {
+  Sun, ArrowRight, CheckCircle, Zap, TrendingUp, Shield,
+  MapPin, LayoutGrid, Calculator, BatteryCharging, ShoppingBag,
+  Star, ChevronDown, Menu, X, Phone, Mail, Globe,
+  Cpu, Wrench, DollarSign, Users, Award, ChevronRight, Sparkles
+} from "lucide-react";
+import "@/components/landing/LandingPage.css";
+
+const DEFAULT_SITE_CONTENT = {
+  hero: {
+    pillText: "Next-Generation Solar Intelligence Platform",
+    headline: "Design. Estimate.",
+    highlight: "Power Your Future.",
+    subtitle: "Plan rooftop solar layouts, review preliminary energy estimates, and explore solar products and services in one workspace.",
+    primaryCtaText: "Start Free Project",
+    primaryCtaLink: "/register",
+    secondaryCtaText: "Explore Platform",
+    secondaryCtaLink: "#platform",
+    trustBadge1: "Satellite Rooftop CAD",
+    trustBadge2: "Preliminary Yield Estimates",
+    trustBadge3: "Solar Provider Listings",
+  },
+  stats: {
+    step1: "Locate a rooftop",
+    step2: "Plan a panel layout",
+    step3: "Review energy estimates",
+    step4: "Prepare a feasibility report",
+  },
+  platform: {
+    pillText: "Rooftop Intelligence",
+    headline: "Interactive Rooftop CAD & Solar Layout Engine",
+    subtitle: "Trace roof boundaries on satellite maps, plan panel layouts, and review preliminary energy estimates.",
+    ctaText: "Launch Solar Workspace",
+    ctaLink: "/login",
+  },
+  howItWorks: {
+    pillText: "Simplified Workflow",
+    headline: "How SolarScope Works",
+    subtitle: "From a location pin to a preliminary feasibility report in four steps.",
+    step1Title: "Map Your Rooftop",
+    step1Desc: "Enter your property address, view high-res satellite imagery, and trace your usable rooftop boundary polygon.",
+    step2Title: "Configure Panel Array",
+    step2Desc: "Place monocrystalline solar panels, select tilt and azimuth orientation, and optimize spacing for peak sunlight capture.",
+    step3Title: "Analyze Yield & ROI",
+    step3Desc: "Simulate annual kilowatt-hour output, storage backup hours, capital cost, and your personalized payback period.",
+    step4Title: "Source Hardware & Install",
+    step4Desc: "Order certified Tier-1 panels, hybrid inverters, and battery banks directly, or hire verified installation teams.",
+  },
+  financials: {
+    pillText: "Financial Intelligence",
+    headline: "Comprehensive Energy & Financial Feasibility Modeling",
+    subtitle: "Engineered metrics before you invest. Backed by ground meteorological data and live utility tariff schedules.",
+    stat1Val: "51.2 kWh",
+    stat1Lbl: "Avg Daily Generation Yield",
+    stat2Val: "12.5 Hrs",
+    stat2Lbl: "Battery Outage Backup",
+    stat3Val: "84%",
+    stat3Lbl: "Grid Tariff Bill Reduction",
+    stat4Val: "3.4 Yrs",
+    stat4Lbl: "System Capital Payback",
+  },
+  features: {
+    pillText: "Unified Suite",
+    headline: "Everything You Need In One Workspace",
+    subtitle: "SolarScope merges industrial-grade CAD software with a transparent hardware marketplace and vetted installer network.",
+  },
+  contact: {
+    pillText: "Get In Touch",
+    headline: "Speak With A Solar Engineer",
+    subtitle: "Whether you are evaluating a residential rooftop, commercial facility, or require an enterprise software demo, our engineering team is ready to assist.",
+    email: "info.solarscope@gmail.com",
+    phone: "+92-51-8849200",
+    location: "Blue Area, Islamabad, Pakistan",
+  },
+  cta: {
+    headline: "Ready to Transition to Clean Solar Energy?",
+    subtitle: "Explore a solar layout and review the assumptions behind its energy and savings estimates.",
+    btn1Text: "Create Free Account",
+    btn1Link: "/register",
+    btn2Text: "Sign In to Workspace",
+    btn2Link: "/login",
+  },
+};
+
+export default function HomePage() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [siteContent, setSiteContent] = useState(DEFAULT_SITE_CONTENT);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // Load dynamic site content from API
+  useEffect(() => {
+    fetch("/api/site-content")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.content && Object.keys(data.content).length > 0) {
+          setSiteContent((prev) => ({
+            ...prev,
+            ...data.content,
+          }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Handle nav sticky background
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Dynamically load GSAP and ScrollTrigger from CDN with robust cleanup
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadScript = (src: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.onload = () => resolve();
+        s.onerror = (e) => reject(e);
+        document.head.appendChild(s);
+      });
+    };
+
+    Promise.all([
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"),
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"),
+    ])
+      .then(() => {
+        if (!isMounted) return;
+        const gsap = window.gsap;
+        const ScrollTrigger = window.ScrollTrigger;
+
+        if (!gsap || !ScrollTrigger) return;
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const DEFAULT_EASE = "power3.out";
+
+        // 1. HERO ANIMATION (Synchronized Entrance Timeline)
+        const heroTl = gsap.timeline({ defaults: { ease: DEFAULT_EASE } });
+
+        // Subtle Ken-Burns zoom on hero image
+        heroTl.fromTo(
+          ".lp-hero-bg img",
+          { scale: 1.14 },
+          { scale: 1.0, duration: 2.2, ease: "power2.out" },
+          0
+        );
+
+        // Synchronized hero text entrance
+        heroTl
+          .fromTo(
+            ".lp-hero-pill",
+            { y: -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7 },
+            0.15
+          )
+          .fromTo(
+            ".lp-hero-h1",
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.9 },
+            "-=0.4"
+          )
+          .fromTo(
+            ".lp-hero-sub",
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8 },
+            "-=0.5"
+          )
+          .fromTo(
+            ".lp-hero-ctas > *",
+            { y: 24, opacity: 0, scale: 0.94 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              stagger: 0.12,
+              duration: 0.65,
+              ease: "back.out(1.6)",
+            },
+            "-=0.4"
+          )
+          .fromTo(
+            ".lp-hero-trust span",
+            { y: 15, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 },
+            "-=0.3"
+          );
+
+        // 2. WORKFLOW HIGHLIGHTS
+        gsap.fromTo(
+          ".lp-stat-item",
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.12,
+            duration: 0.75,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-stats",
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 3. SYNCHRONIZED PARALLAX SCRUB ON ALL IMAGE-BACKGROUND SECTIONS
+        const imgSections = document.querySelectorAll<HTMLElement>(".lp-imgbg-section");
+        imgSections.forEach((sec) => {
+          const img = sec.querySelector<HTMLElement>(".lp-imgbg-bg img");
+          if (img) {
+            gsap.fromTo(
+              img,
+              { yPercent: -8 },
+              {
+                yPercent: 8,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: sec,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 1.2,
+                },
+              }
+            );
+          }
+        });
+
+        // 4. UNIFIED SECTION HEADERS (Pill -> Title -> Subtitle)
+        const allSections = document.querySelectorAll<HTMLElement>(
+          ".lp-white-section, .lp-imgbg-section"
+        );
+        allSections.forEach((sec) => {
+          const pill = sec.querySelector(".lp-section-pill");
+          const h2 = sec.querySelector(
+            ".lp-section-h2, .lp-contact-h2, .lp-cta-h2"
+          );
+          const sub = sec.querySelector(
+            ".lp-section-sub, .lp-contact-sub, .lp-cta-sub"
+          );
+
+          if (pill || h2 || sub) {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: sec,
+                start: "top 82%",
+                toggleActions: "play none none none",
+              },
+              defaults: { ease: DEFAULT_EASE, duration: 0.7 },
+            });
+
+            if (pill) tl.fromTo(pill, { y: 20, opacity: 0 }, { y: 0, opacity: 1 }, 0);
+            if (h2)
+              tl.fromTo(h2, { y: 28, opacity: 0 }, { y: 0, opacity: 1 }, 0.1);
+            if (sub)
+              tl.fromTo(sub, { y: 22, opacity: 0 }, { y: 0, opacity: 1 }, 0.2);
+          }
+        });
+
+        // 5. PLATFORM FEATURE GLASS CARDS (Section 3)
+        gsap.fromTo(
+          ".lp-feat-card-glass",
+          { y: 45, opacity: 0, scale: 0.95 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            stagger: 0.14,
+            duration: 0.8,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-feature-cards-row",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 6. HOW IT WORKS STEP CARDS (Section 4)
+        gsap.fromTo(
+          ".lp-step-card",
+          { y: 48, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-steps-grid",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 7. ENERGY & FINANCIAL METRICS CARDS (Section 5)
+        gsap.fromTo(
+          ".lp-est-card",
+          { y: 40, opacity: 0, scale: 0.94 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-est-cards",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 8. FULL PLATFORM FEATURES GRID (Section 6)
+        gsap.fromTo(
+          ".lp-feature-card",
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.75,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-features-grid",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 9. SOLAR MARKETPLACE PRODUCT CARDS & IMAGES (Section 7)
+        gsap.fromTo(
+          ".lp-product-card",
+          { y: 55, opacity: 0, scale: 0.94 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            stagger: 0.15,
+            duration: 0.85,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-products-grid",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 10. WHY US CARDS (Section 8)
+        gsap.fromTo(
+          ".lp-why-card",
+          { y: 35, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.75,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-why-grid",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 11. FAQ ACCORDION CASCADE (Section 9)
+        gsap.fromTo(
+          ".lp-faq-item",
+          { y: 25, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.1,
+            duration: 0.65,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-faq-list",
+              start: "top 82%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 12. CONTACT SECTION (Split Slide-In) (Section 10)
+        gsap.fromTo(
+          ".lp-contact-info",
+          { x: -40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-contact-grid",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+        gsap.fromTo(
+          ".lp-contact-form",
+          { x: 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-contact-grid",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // 13. FINAL CTA INNER STAGGER (Section 11)
+        gsap.fromTo(
+          ".lp-cta-inner > *",
+          { y: 28, opacity: 0, scale: 0.95 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: DEFAULT_EASE,
+            scrollTrigger: {
+              trigger: ".lp-cta-section",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      })
+      .catch((err) => {
+        console.warn("GSAP CDN load error, fallback CSS active:", err);
+      });
+
+    return () => {
+      isMounted = false;
+      const ScrollTrigger = window.ScrollTrigger;
+      if (ScrollTrigger) {
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      }
+    };
+  }, []);
+
+  const faqs = [
+    {
+      q: "How accurate is SolarScope's energy estimation?",
+      a: "SolarScope provides preliminary estimates from the project design and calculation assumptions. Actual production varies with equipment, weather, shading, installation, and utility conditions. Have a qualified professional verify the results.",
+    },
+    {
+      q: "Can I design a rooftop layout on any property?",
+      a: "Search for an address to view satellite imagery, then trace the roof boundary and mark areas that should remain clear of panels.",
+    },
+    {
+      q: "Are the marketplace equipment vendors verified?",
+      a: "Marketplace entries in this demo are sample listings and are not independently verified. Confirm seller credentials, product specifications, and warranty terms before making a purchase.",
+    },
+    {
+      q: "What does the financial payback calculation include?",
+      a: "It accounts for system CAPEX, regional electricity tariffs, net metering credits, annual generation degradation, and projected utility price inflation.",
+    },
+    {
+      q: "Can I export my project as a professional engineering report?",
+      a: "Yes — every project generates a comprehensive PDF engineering report complete with solar irradiance heatmaps, electrical system specs, ROI timeline, and bill of quantities.",
+    },
+  ];
+
+  return (
+    <div className="lp-root">
+      {/* ── TOP NAVIGATION ── */}
+      <header className={`lp-nav${scrolled ? " lp-nav--scrolled" : ""}`}>
+        <div className="lp-nav-inner">
+          <Link href="/" className="lp-brand">
+            <span className="lp-brand-icon">
+              <Sun size={20} />
+            </span>
+            <span className="lp-brand-name">SolarScope</span>
+          </Link>
+
+          <nav className="lp-nav-links">
+            <a href="#platform" className="lp-nav-link">Platform</a>
+            <a href="#how-it-works" className="lp-nav-link">How It Works</a>
+            <a href="#financials" className="lp-nav-link">Financials</a>
+            <a href="#features" className="lp-nav-link">Features</a>
+            <a href="#marketplace" className="lp-nav-link">Marketplace</a>
+            <a href="#contact" className="lp-nav-link">Contact</a>
+          </nav>
+
+          <div className="lp-nav-actions">
+            <Link href="/login" className="lp-nav-btn-ghost">
+              Sign In
+            </Link>
+            <Link href="/register" className="lp-nav-btn-gold">
+              Get Started
+            </Link>
+          </div>
+
+          <button
+            className="lp-mobile-toggle"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        {mobileOpen && (
+          <div className="lp-mobile-menu">
+            <a
+              href="#platform"
+              className="lp-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              Platform
+            </a>
+            <a
+              href="#how-it-works"
+              className="lp-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              How It Works
+            </a>
+            <a
+              href="#financials"
+              className="lp-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              Financials
+            </a>
+            <a
+              href="#features"
+              className="lp-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              Features
+            </a>
+            <a
+              href="#marketplace"
+              className="lp-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              Marketplace
+            </a>
+            <a
+              href="#contact"
+              className="lp-mobile-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              Contact
+            </a>
+            <div className="lp-mobile-actions">
+              <Link href="/login" className="lp-nav-btn-ghost">
+                Sign In
+              </Link>
+              <Link href="/register" className="lp-nav-btn-gold">
+                Get Started
+              </Link>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* ══════════════════════════════════════════
+          SECTION 1 — HERO BANNER (Image BG + Gradient)
+      ══════════════════════════════════════════ */}
+      <section className="lp-hero" ref={heroRef}>
+        <div className="lp-hero-bg">
+          <Image
+            src="/images/hero-banner.jpg"
+            alt="Solar cityscape aerial view"
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+            unoptimized
+          />
+          <div className="lp-hero-overlay" />
+        </div>
+
+        <div className="lp-hero-content lp-hero-visible">
+          <div className="lp-container">
+            <div className="lp-hero-pill">
+              <Sparkles size={14} />
+              <span>{siteContent.hero.pillText}</span>
+            </div>
+            <h1 className="lp-hero-h1">
+              {siteContent.hero.headline}<br />
+              <span className="lp-gold">{siteContent.hero.highlight}</span>
+            </h1>
+            <p className="lp-hero-sub">
+              {siteContent.hero.subtitle}
+            </p>
+            <div className="lp-hero-ctas">
+              <Link href={siteContent.hero.primaryCtaLink || "/register"} className="lp-btn-gold-lg">
+                {siteContent.hero.primaryCtaText} <ArrowRight size={18} />
+              </Link>
+              <a href={siteContent.hero.secondaryCtaLink || "#platform"} className="lp-btn-ghost-lg">
+                {siteContent.hero.secondaryCtaText}
+              </a>
+            </div>
+            <div className="lp-hero-trust">
+              <span>
+                <CheckCircle size={15} /> {siteContent.hero.trustBadge1}
+              </span>
+              <span>
+                <CheckCircle size={15} /> {siteContent.hero.trustBadge2}
+              </span>
+              <span>
+                <CheckCircle size={15} /> {siteContent.hero.trustBadge3}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="lp-hero-scroll">
+          <ChevronDown size={24} />
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 2 — STATS (White / Clean Off-White)
+      ══════════════════════════════════════════ */}
+      <section className="lp-stats">
+        <div className="lp-container">
+          <div className="lp-stats-grid">
+            {[
+              { step: "01", label: siteContent.stats.step1 },
+              { step: "02", label: siteContent.stats.step2 },
+              { step: "03", label: siteContent.stats.step3 },
+              { step: "04", label: siteContent.stats.step4 },
+            ].map(({ step, label }) => (
+              <div className="lp-stat-item" key={step}>
+                <div className="lp-stat-val">{step}</div>
+                <div className="lp-stat-lbl">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 3 — PLATFORM OVERVIEW (Image BG + Gradient)
+      ══════════════════════════════════════════ */}
+      <section id="platform" className="lp-imgbg-section">
+        <div className="lp-imgbg-bg">
+          <Image
+            src="/images/bg-installation.jpg"
+            alt="Solar installation rooftop work"
+            fill
+            style={{ objectFit: "cover" }}
+            unoptimized
+          />
+          <div className="lp-imgbg-overlay" />
+        </div>
+        <div className="lp-container lp-imgbg-inner">
+          <div className="lp-section-pill lp-pill-light">{siteContent.platform.pillText}</div>
+          <h2 className="lp-section-h2 lp-white">
+            {siteContent.platform.headline}
+          </h2>
+          <p className="lp-section-sub lp-sub-light">
+            {siteContent.platform.subtitle}
+          </p>
+          <div className="lp-feature-cards-row">
+            {[
+              {
+                icon: <MapPin size={22} />,
+                title: "Satellite Property Mapping",
+                desc: "Search for a location, outline roof surfaces, and mark restricted areas that panels should avoid.",
+              },
+              {
+                icon: <LayoutGrid size={22} />,
+                title: "Panel Placement Optimizer",
+                desc: "Configure panel orientation and spacing, then review the proposed layout.",
+              },
+              {
+                icon: <Calculator size={22} />,
+                title: "Real-Time Yield Simulation",
+                desc: "Review estimated annual generation and savings based on the project's design assumptions.",
+              },
+            ].map((f, i) => (
+              <div key={i} className="lp-feat-card-glass">
+                <div className="lp-feat-card-icon">{f.icon}</div>
+                <h3 className="lp-feat-card-title">{f.title}</h3>
+                <p className="lp-feat-card-desc">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+          <Link href={siteContent.platform.ctaLink || "/register"} className="lp-btn-gold-lg lp-mt-40">
+            {siteContent.platform.ctaText || "Launch Solar Workspace"} <ArrowRight size={18} />
+          </Link>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 4 — HOW IT WORKS (White / Clean Off-White)
+      ══════════════════════════════════════════ */}
+      <section id="how-it-works" className="lp-white-section">
+        <div className="lp-container">
+          <div className="lp-section-head">
+            <div className="lp-section-pill">{siteContent.howItWorks.pillText}</div>
+            <h2 className="lp-section-h2">{siteContent.howItWorks.headline}</h2>
+            <p className="lp-section-sub">
+              {siteContent.howItWorks.subtitle}
+            </p>
+          </div>
+          <div className="lp-steps-grid">
+            {[
+              {
+                num: "01",
+                icon: <MapPin size={24} />,
+                title: siteContent.howItWorks.step1Title || "Map Your Rooftop",
+                desc: siteContent.howItWorks.step1Desc || "Enter your property address, view high-res satellite imagery, and trace your usable rooftop boundary polygon.",
+              },
+              {
+                num: "02",
+                icon: <LayoutGrid size={24} />,
+                title: siteContent.howItWorks.step2Title || "Configure Panel Array",
+                desc: siteContent.howItWorks.step2Desc || "Place monocrystalline solar panels, select tilt and azimuth orientation, and optimize spacing for peak sunlight capture.",
+              },
+              {
+                num: "03",
+                icon: <Calculator size={24} />,
+                title: siteContent.howItWorks.step3Title || "Analyze Yield & ROI",
+                desc: siteContent.howItWorks.step3Desc || "Simulate annual kilowatt-hour output, storage backup hours, capital cost, and your personalized payback period.",
+              },
+              {
+                num: "04",
+                icon: <ShoppingBag size={24} />,
+                title: siteContent.howItWorks.step4Title || "Source Hardware & Install",
+                desc: siteContent.howItWorks.step4Desc || "Order certified Tier-1 panels, hybrid inverters, and battery banks directly, or hire verified installation teams.",
+              },
+            ].map((s, i) => (
+              <div key={i} className="lp-step-card">
+                <span className="lp-step-num">{s.num}</span>
+                <div className="lp-step-icon">{s.icon}</div>
+                <h3 className="lp-step-title">{s.title}</h3>
+                <p className="lp-step-desc">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 5 — ENERGY & FINANCIAL (Image BG + Gradient)
+      ══════════════════════════════════════════ */}
+      <section id="financials" className="lp-imgbg-section">
+        <div className="lp-imgbg-bg">
+          <Image
+            src="/images/bg-solar-farm.jpg"
+            alt="Utility solar farm panels at sunset"
+            fill
+            style={{ objectFit: "cover" }}
+            unoptimized
+          />
+          <div className="lp-imgbg-overlay lp-overlay-dark" />
+        </div>
+        <div className="lp-container lp-imgbg-inner">
+          <div className="lp-section-pill lp-pill-light">{siteContent.financials.pillText}</div>
+          <h2 className="lp-section-h2 lp-white">
+            {siteContent.financials.headline}
+          </h2>
+          <p className="lp-section-sub lp-sub-light">
+            {siteContent.financials.subtitle}
+          </p>
+          <div className="lp-est-cards">
+            {[
+              {
+                val: siteContent.financials.stat1Val || "51.2 kWh",
+                lbl: siteContent.financials.stat1Lbl || "Avg Daily Generation Yield",
+                icon: <Zap size={22} />,
+              },
+              {
+                val: siteContent.financials.stat2Val || "12.5 Hrs",
+                lbl: siteContent.financials.stat2Lbl || "Battery Outage Backup",
+                icon: <BatteryCharging size={22} />,
+              },
+              {
+                val: siteContent.financials.stat3Val || "84%",
+                lbl: siteContent.financials.stat3Lbl || "Grid Tariff Bill Reduction",
+                icon: <DollarSign size={22} />,
+              },
+              {
+                val: siteContent.financials.stat4Val || "3.4 Yrs",
+                lbl: siteContent.financials.stat4Lbl || "System Capital Payback",
+                icon: <TrendingUp size={22} />,
+              },
+            ].map((e, i) => (
+              <div key={i} className="lp-est-card">
+                <div className="lp-est-icon">{e.icon}</div>
+                <div className="lp-est-val">{e.val}</div>
+                <div className="lp-est-lbl">{e.lbl}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 6 — FEATURES GRID (White / Clean Off-White)
+      ══════════════════════════════════════════ */}
+      <section id="features" className="lp-white-section">
+        <div className="lp-container">
+          <div className="lp-section-head">
+            <div className="lp-section-pill">{siteContent.features.pillText}</div>
+            <h2 className="lp-section-h2">{siteContent.features.headline}</h2>
+            <p className="lp-section-sub">
+              {siteContent.features.subtitle}
+            </p>
+          </div>
+          <div className="lp-features-grid">
+            {[
+              {
+                icon: <Cpu size={22} />,
+                tag: "CAD Engine",
+                title: "Rooftop Polygon Editor",
+                desc: "Trace high-resolution satellite imagery, designate keepout zones, and calculate roof tilt angles with sub-meter accuracy.",
+              },
+              {
+                icon: <Calculator size={22} />,
+                tag: "Simulation",
+                title: "PV Performance Engine",
+                desc: "Simulate seasonal yield patterns accounting for heat derating, soiling coefficients, and inverter clipping losses.",
+              },
+              {
+                icon: <BatteryCharging size={22} />,
+                tag: "Storage",
+                title: "Battery Storage Sizing",
+                desc: "Size lithium iron phosphate (LiFePO4) storage banks to support critical home and commercial loads seamlessly.",
+              },
+              {
+                icon: <ShoppingBag size={22} />,
+                tag: "Hardware",
+                title: "Direct Marketplace",
+                desc: "Purchase Tier-1 modules, hybrid inverters, and anodized aluminum mounting racks directly from verified suppliers.",
+              },
+              {
+                icon: <DollarSign size={22} />,
+                tag: "Financing",
+                title: "ROI & Payback Tracker",
+                desc: "Detailed cash-flow projections, net metering revenues, and customized down payment installment calculators.",
+              },
+              {
+                icon: <Wrench size={22} />,
+                tag: "Field Services",
+                title: "Certified Installers",
+                desc: "Book licensed solar engineers for on-site verification, net-metering licensing, and turnkey commissioning.",
+              },
+            ].map((f, i) => (
+              <div key={i} className="lp-feature-card">
+                <div className="lp-feature-icon">{f.icon}</div>
+                <span className="lp-feature-tag">{f.tag}</span>
+                <h3 className="lp-feature-title">{f.title}</h3>
+                <p className="lp-feature-desc">{f.desc}</p>
+                <span className="lp-feature-link">
+                  Explore feature <ChevronRight size={14} />
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 7 — MARKETPLACE (Image BG + Gradient)
+      ══════════════════════════════════════════ */}
+      <section id="marketplace" className="lp-imgbg-section">
+        <div className="lp-imgbg-bg">
+          <Image
+            src="/images/hero-banner.jpg"
+            alt="Solar technology and commercial solutions"
+            fill
+            style={{ objectFit: "cover" }}
+            unoptimized
+          />
+          <div className="lp-imgbg-overlay" />
+        </div>
+        <div className="lp-container lp-imgbg-inner">
+          <div className="lp-section-pill lp-pill-light">Solar Marketplace</div>
+          <h2 className="lp-section-h2 lp-white">
+            Premium Solar Equipment, Verified
+          </h2>
+          <p className="lp-section-sub lp-sub-light">
+            Source bankable Tier-1 solar hardware with genuine manufacturer warranties and direct distributor pricing.
+          </p>
+
+          <div className="lp-products-grid">
+            {/* Product 1: Solar Panel */}
+            <div className="lp-product-card">
+              <div className="lp-product-badge">Top Seller</div>
+              <div className="lp-product-img-wrap">
+                <Image
+                  src="/images/product-panel.jpg"
+                  alt="JA Solar DeepBlue 3.0 545W Monocrystalline Panel"
+                  fill
+                  style={{ objectFit: "contain", padding: "16px" }}
+                  unoptimized
+                />
+              </div>
+              <div className="lp-product-body">
+                <div className="lp-product-type">Tier-1 Monocrystalline</div>
+                <h3 className="lp-product-name">JA Solar DeepBlue 3.0 — 545W</h3>
+                <div className="lp-product-stars">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={13}
+                      fill="#FFB800"
+                      color="#FFB800"
+                    />
+                  ))}
+                  <span>4.9 (134 reviews)</span>
+                </div>
+                <ul className="lp-product-specs">
+                  <li>
+                    <CheckCircle size={13} /> 21.5% Peak Module Efficiency
+                  </li>
+                  <li>
+                    <CheckCircle size={13} /> 25-Year Linear Output Warranty
+                  </li>
+                  <li>
+                    <CheckCircle size={13} /> Multi-busbar Half-Cut Cells
+                  </li>
+                </ul>
+                <div className="lp-product-price">
+                  PKR 28,500 <span>/ module</span>
+                </div>
+                <Link href="/projects" className="lp-product-btn">
+                  Configure in System
+                </Link>
+              </div>
+            </div>
+
+            {/* Product 2: Hybrid Inverter */}
+            <div className="lp-product-card">
+              <div className="lp-product-badge lp-badge-blue">Industrial</div>
+              <div className="lp-product-img-wrap">
+                <Image
+                  src="/images/product-inverter.jpg"
+                  alt="Growatt SPH 10000TL3 Hybrid Inverter 10kW"
+                  fill
+                  style={{ objectFit: "contain", padding: "16px" }}
+                  unoptimized
+                />
+              </div>
+              <div className="lp-product-body">
+                <div className="lp-product-type">Hybrid Inverter</div>
+                <h3 className="lp-product-name">
+                  Growatt SPH 10000TL3 — 10kW
+                </h3>
+                <div className="lp-product-stars">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={13}
+                      fill={i < 5 ? "#FFB800" : "none"}
+                      color="#FFB800"
+                    />
+                  ))}
+                  <span>4.8 (98 reviews)</span>
+                </div>
+                <ul className="lp-product-specs">
+                  <li>
+                    <CheckCircle size={13} /> Dual MPPT & 98.4% Efficiency
+                  </li>
+                  <li>
+                    <CheckCircle size={13} /> Seamless Off-Grid Switchover
+                  </li>
+                  <li>
+                    <CheckCircle size={13} /> Real-Time Cloud Telemetry
+                  </li>
+                </ul>
+                <div className="lp-product-price">
+                  PKR 185,000 <span>/ unit</span>
+                </div>
+                <Link href="/projects" className="lp-product-btn">
+                  Configure in System
+                </Link>
+              </div>
+            </div>
+
+            {/* Product 3: LiFePO4 Battery */}
+            <div className="lp-product-card">
+              <div className="lp-product-badge lp-badge-green">High Demand</div>
+              <div className="lp-product-img-wrap">
+                <Image
+                  src="/images/product-battery.jpg"
+                  alt="Pylontech US3000C LiFePO4 Battery 3.5kWh"
+                  fill
+                  style={{ objectFit: "contain", padding: "16px" }}
+                  unoptimized
+                />
+              </div>
+              <div className="lp-product-body">
+                <div className="lp-product-type">LiFePO4 Storage</div>
+                <h3 className="lp-product-name">
+                  Pylontech US3000C — 3.5kWh
+                </h3>
+                <div className="lp-product-stars">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={13}
+                      fill="#FFB800"
+                      color="#FFB800"
+                    />
+                  ))}
+                  <span>5.0 (62 reviews)</span>
+                </div>
+                <ul className="lp-product-specs">
+                  <li>
+                    <CheckCircle size={13} /> 6,000+ Deep Cycles @ 95% DoD
+                  </li>
+                  <li>
+                    <CheckCircle size={13} /> Modular Rack-Mount Scalable
+                  </li>
+                  <li>
+                    <CheckCircle size={13} /> Integrated Smart BMS Protection
+                  </li>
+                </ul>
+                <div className="lp-product-price">
+                  PKR 145,000 <span>/ unit</span>
+                </div>
+                <Link href="/projects" className="lp-product-btn">
+                  Configure in System
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="lp-mp-cta-row">
+            <p>
+              Looking for custom capacities? Explore our catalog of 200+ verified solar panels, inverters, and mounting kits.
+            </p>
+            <Link href="/projects" className="lp-btn-gold-lg">
+              Explore Hardware Catalog <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 8 — WHY SOLARSCOPE (White / Clean Off-White)
+      ══════════════════════════════════════════ */}
+      <section className="lp-white-section">
+        <div className="lp-container">
+          <div className="lp-section-head">
+            <div className="lp-section-pill">Why SolarScope</div>
+            <h2 className="lp-section-h2">
+              Engineered For Precision. Built For Transparency.
+            </h2>
+            <p className="lp-section-sub">
+              Every algorithm, CAD tool, and vendor verification is designed to give homeowners and enterprises complete confidence.
+            </p>
+          </div>
+          <div className="lp-why-grid">
+            {[
+              {
+                icon: <Shield size={24} />,
+                title: "Vetted Suppliers & Technicians",
+                desc: "Every equipment manufacturer and installation partner undergoes corporate screening and credential reviews before being onboarded.",
+              },
+              {
+                icon: <Zap size={24} />,
+                title: "Sub-Second Simulation Engine",
+                desc: "CAD edits update irradiance, tilt shadow factors, kilowatt-hour yield, and bill offsets simultaneously with zero lag.",
+              },
+              {
+                icon: <Award size={24} />,
+                title: "Bankable Tier-1 Hardware",
+                desc: "We exclusively list certified Tier-1 equipment backed by international testing standards (IEC, CE, TÜV Rheinland).",
+              },
+              {
+                icon: <Users size={24} />,
+                title: "Certified Field Contractors",
+                desc: "Connect with accredited local EPC contractors for physical structural audits, electrical wiring, and net metering permits.",
+              },
+              {
+                icon: <TrendingUp size={24} />,
+                title: "25-Year Life Cycle Analysis",
+                desc: "Project cumulative electricity savings over 25 years incorporating utility inflation rates and component degradation curves.",
+              },
+              {
+                icon: <Globe size={24} />,
+                title: "High-Resolution Solar Telemetry",
+                desc: "Satellite irradiance records calibrated specifically for local weather stations across major urban and industrial centers.",
+              },
+            ].map((w, i) => (
+              <div key={i} className="lp-why-card">
+                <div className="lp-why-icon">{w.icon}</div>
+                <h3 className="lp-why-title">{w.title}</h3>
+                <p className="lp-why-desc">{w.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 9 — FAQ (Image BG + Gradient)
+      ══════════════════════════════════════════ */}
+      <section className="lp-imgbg-section">
+        <div className="lp-imgbg-bg">
+          <Image
+            src="/images/bg-installation.jpg"
+            alt="Technicians installing commercial solar modules"
+            fill
+            style={{ objectFit: "cover" }}
+            unoptimized
+          />
+          <div className="lp-imgbg-overlay lp-overlay-blue" />
+        </div>
+        <div className="lp-container lp-imgbg-inner">
+          <div className="lp-section-pill lp-pill-light">Knowledge Base</div>
+          <h2 className="lp-section-h2 lp-white">
+            Frequently Asked Questions
+          </h2>
+          <p className="lp-section-sub lp-sub-light">
+            Clear answers about rooftop solar engineering, equipment warranties, and project modeling.
+          </p>
+
+          <div className="lp-faq-list">
+            {faqs.map((f, i) => (
+              <div
+                key={i}
+                className={`lp-faq-item${openFaq === i ? " lp-faq-open" : ""}`}
+              >
+                <button
+                  className="lp-faq-q"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  aria-expanded={openFaq === i}
+                >
+                  <span>{f.q}</span>
+                  <ChevronDown
+                    size={18}
+                    className={`lp-faq-chevron${
+                      openFaq === i ? " lp-faq-chevron-open" : ""
+                    }`}
+                  />
+                </button>
+                {openFaq === i && (
+                  <div className="lp-faq-a">
+                    <p>{f.a}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 10 — CONTACT (White / Clean Off-White)
+      ══════════════════════════════════════════ */}
+      <section id="contact" className="lp-white-section">
+        <div className="lp-container">
+          <div className="lp-contact-grid">
+            <div className="lp-contact-info">
+              <div className="lp-section-pill">{siteContent.contact.pillText}</div>
+              <h2 className="lp-contact-h2">{siteContent.contact.headline}</h2>
+              <p className="lp-contact-sub">
+                {siteContent.contact.subtitle}
+              </p>
+
+              <div className="lp-contact-details">
+                <div className="lp-contact-row">
+                  <div className="lp-contact-icon">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <div className="lp-contact-label">Email Support</div>
+                    <div className="lp-contact-val">{siteContent.contact.email}</div>
+                  </div>
+                </div>
+
+                <div className="lp-contact-row">
+                  <div className="lp-contact-icon">
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <div className="lp-contact-label">Call Engineering Desk</div>
+                    <div className="lp-contact-val">{siteContent.contact.phone}</div>
+                  </div>
+                </div>
+
+                <div className="lp-contact-row">
+                  <div className="lp-contact-icon">
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <div className="lp-contact-label">Technology Center</div>
+                    <div className="lp-contact-val">
+                      {siteContent.contact.location}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form
+              className="lp-contact-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Thank you! Your solar inquiry has been received. Our engineering specialist will reach out shortly.");
+              }}
+            >
+              <h3 className="lp-form-title">Request A Feasibility Consultation</h3>
+              <div className="lp-form-row">
+                <div className="lp-form-field">
+                  <label className="lp-form-label">Full Name</label>
+                  <input
+                    className="lp-form-input"
+                    type="text"
+                    required
+                    placeholder="Engr. Tariq Mehmood"
+                  />
+                </div>
+                <div className="lp-form-field">
+                  <label className="lp-form-label">Email Address</label>
+                  <input
+                    className="lp-form-input"
+                    type="email"
+                    required
+                    placeholder="tariq@enterprise.com"
+                  />
+                </div>
+              </div>
+              <div className="lp-form-field">
+                <label className="lp-form-label">System Type & City</label>
+                <input
+                  className="lp-form-input"
+                  type="text"
+                  required
+                  placeholder="15kW On-Grid / Karachi"
+                />
+              </div>
+              <div className="lp-form-field">
+                <label className="lp-form-label">Project Details</label>
+                <textarea
+                  className="lp-form-textarea"
+                  rows={4}
+                  placeholder="Describe your rooftop area, monthly electricity bill, or equipment inquiries…"
+                />
+              </div>
+              <button type="submit" className="lp-form-submit">
+                Submit Consultation Request <ArrowRight size={16} />
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SECTION 11 — FINAL CTA (Image BG + Gradient)
+      ══════════════════════════════════════════ */}
+      <section className="lp-imgbg-section lp-cta-section">
+        <div className="lp-imgbg-bg">
+          <Image
+            src="/images/bg-solar-farm.jpg"
+            alt="Clean renewable solar power landscape"
+            fill
+            style={{ objectFit: "cover" }}
+            unoptimized
+          />
+          <div className="lp-imgbg-overlay lp-overlay-dark" />
+        </div>
+        <div className="lp-container lp-imgbg-inner lp-cta-inner">
+          <div className="lp-cta-icon-wrap">
+            <Sun size={36} />
+          </div>
+          <h2 className="lp-cta-h2">{siteContent.cta.headline}</h2>
+          <p className="lp-cta-sub">
+            {siteContent.cta.subtitle}
+          </p>
+          <div className="lp-hero-ctas">
+            <Link href={siteContent.cta.btn1Link || "/register"} className="lp-btn-gold-lg">
+              {siteContent.cta.btn1Text} <ArrowRight size={18} />
+            </Link>
+            <Link href={siteContent.cta.btn2Link || "/login"} className="lp-btn-ghost-lg">
+              {siteContent.cta.btn2Text}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          FOOTER (Deep Solar Blue #0F2C59)
+      ══════════════════════════════════════════ */}
+      <footer className="lp-footer">
+        <div className="lp-container">
+          <div className="lp-footer-grid">
+            <div className="lp-footer-brand-col">
+              <Link href="/" className="lp-brand lp-footer-brand">
+                <span className="lp-brand-icon">
+                  <Sun size={18} />
+                </span>
+                <span className="lp-brand-name">SolarScope</span>
+              </Link>
+              <p className="lp-footer-desc">
+                A workspace for preliminary solar layout planning, energy estimates, and provider listings.
+              </p>
+            </div>
+            <div className="lp-footer-col">
+              <h4 className="lp-footer-col-title">Platform</h4>
+              <nav className="lp-footer-links">
+                <a href="#platform" className="lp-footer-link">Rooftop CAD</a>
+                <a href="#financials" className="lp-footer-link">Energy Modeling</a>
+                <a href="#marketplace" className="lp-footer-link">Marketplace</a>
+                <a href="#how-it-works" className="lp-footer-link">How It Works</a>
+              </nav>
+            </div>
+            <div className="lp-footer-col">
+              <h4 className="lp-footer-col-title">Workspace</h4>
+              <nav className="lp-footer-links">
+                <Link href="/register" className="lp-footer-link">Create Account</Link>
+                <Link href="/login" className="lp-footer-link">Sign In</Link>
+                <Link href="/dashboard" className="lp-footer-link">Dashboard</Link>
+                <Link href="/projects" className="lp-footer-link">Project Studio</Link>
+              </nav>
+            </div>
+            <div className="lp-footer-col">
+              <h4 className="lp-footer-col-title">Contact</h4>
+              <nav className="lp-footer-links">
+                <a href="mailto:info.solarscope@gmail.com" className="lp-footer-link">
+                  info.solarscope@gmail.com
+                </a>
+                <a href="#contact" className="lp-footer-link">
+                  Consultation Request
+                </a>
+                <span className="lp-footer-link">Islamabad, Pakistan</span>
+              </nav>
+            </div>
+          </div>
+          <div className="lp-footer-bottom">
+            <span>© {new Date().getFullYear()} SolarScope. All rights reserved.</span>
+            <span>Designed for precision. Powered by innovation.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
